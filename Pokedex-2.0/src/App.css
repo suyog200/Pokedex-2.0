@@ -1,0 +1,176 @@
+/* roots====================== */
+:root {
+    --main-login-bgColor: #EE781E
+    --main-signup-bgColor: #31D297
+}
+/* css for login and signup */
+
+.main-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 100vh;
+  width: 100%;
+}
+
+.main-right-content {
+  height: 100%;
+  width: 100%;
+  position: relative;
+}
+
+.login-BgColor {
+  background-color: #EE781E;
+}
+
+.signup-BgColor {
+    background-color: #31D297;
+  }
+
+.main-left-content {
+    width: 100%;
+    height: 100%;
+    background-color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.main-right-content .right-img {
+    width: 450px;
+    height: 450px;
+    object-fit: contain;
+    position: absolute;
+    right: 2%;
+    bottom: 2%;
+}
+
+.main-left-content .left-img {
+    height: 600px;
+    object-fit: contain;
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.main-right-content p {
+    position: relative;
+    font-weight: 700;
+    font-size: 65px;
+    z-index: 1;
+    color: white;
+    width: 70%;
+    margin: 10px 30px;
+}
+
+/* form css======================================== */
+
+.form-container {
+    padding: 15px;
+    background-color: white;
+    z-index: 1;
+    box-shadow: 4px 4px 7px 0px rgba(0,0,0,0.47);
+    border-radius: 10px;
+    margin: 0 20px;
+    width: 50%;
+}
+
+.form-container .form-img-box{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.form-container .form-img {
+    width: 40px;
+    height: 40px;
+}
+
+.form-container .form-title {
+    font-size: 25px;
+    font-weight: bold;
+    margin: 10px 0;
+}
+
+.form-title-loginColor {
+    color:#EE781E
+}
+
+.form-title-signupColor {
+    color: #31D297;
+}
+
+.input-box {
+    display:  flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.input-box input {
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid black;
+    outline: none;
+    border-radius: 8px;
+}
+
+.form-container .fgt-pass-text {
+    text-align: right;
+    color: #EE781E;
+    font-weight: bold;
+}
+
+.form-container .btn-login {
+    padding: 10px;
+    margin: 10px 0;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    outline: none;
+    width: 100%;
+    font-weight: 900;
+}
+
+.btn-login-color {
+    background-color: #EE781E;
+}
+
+.btn-signup-color {
+    background-color: #31D297;
+}
+
+.form-container .btn-login-color:hover {
+    background-color: #e25423;
+}
+
+.form-container .btn-signup-color:hover {
+    background-color: #219268;
+}
+
+.form-container .form-subText {
+    text-align: center;
+    font-weight: bold;
+}
+
+.form-subText-loginColor {
+    color: #EE781E;
+}
+
+.form-subText-signupColor {
+    color: #31D297;
+}
+
+.form-container .form-subText-loginColor a {
+    color: #d4630c;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.form-container .form-subText-signupColor a {
+    color: #1e8e5e;
+    font-weight: bold;
+    cursor: pointer;
+}
+
