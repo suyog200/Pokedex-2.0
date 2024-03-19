@@ -57,6 +57,7 @@ export default function HomePage() {
             <button className="btn">Limit</button>
           </div>
         </div>
+        {/* CardComponent */}
       </section>
     </>
   );

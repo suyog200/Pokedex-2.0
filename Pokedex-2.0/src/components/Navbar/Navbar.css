@@ -4,8 +4,15 @@
     align-items: center;
     z-index: 1;
     padding: 0 30px;
-    background-color: #C61B0A;
+    background-color: transparent;
     max-height: 60px;
+    position: fixed;
+    width: -webkit-fill-available;
+}
+
+.scroll {
+    background-color: #C61B0A;
+    transition: 0.3s;
 }
 
 .navbar-left {
