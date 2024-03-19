@@ -1,0 +1,75 @@
+.card {
+    width: 240px;
+    height: 300px;
+    background-color: white;
+    border-radius: 10px;
+    border: 10px solid #424949;
+    display: flex;
+    flex-direction: column;
+}
+
+.card .card-img {
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.card .card-img img {
+    width: 150px;
+    height: 150px;
+    object-fit: contain;
+}
+
+.card .cardMain-text {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding-left: 10px;
+    margin: 8px 0px;
+}
+
+.card .cardMain-text .card-title {
+    font-size: 15px;
+    font-weight: bold;
+    color: #424949;
+    margin: 0;
+}
+
+.card .cardMain-text .card-title--type {
+    font-size: 12px;
+    font-weight: 800;
+    margin: 0 10px;
+    background-color: #424949;
+    color: white;
+    padding: 3px 5px;
+    border-radius: 20px;
+}
+
+.card .cardMain-subText {
+    background-color: #E5DCDC;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.card .cardMain-subText .cardMain-subText-1 {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.card .cardMain-subText .cardMain-subText-2 {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.card .cardMain-subText .cardMain-subText-1 p {
+    margin: 0;
+}
+
+.card .cardMain-subText .cardMain-subText-2 p {
+    margin: 0;
+}

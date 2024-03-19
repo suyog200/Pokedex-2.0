@@ -3,8 +3,10 @@ import "./HomePage.css";
 import HomeVideo from "../../assets/images/home-main.mp4";
 import DownArrow from "../../assets/images/go-down-arrow.png";
 import Navbar from "../Navbar/Navbar";
-import PokdexHeadImg from '../../assets/images/pokedex-font.png'
-import PokedexLogo from '../../assets/images/logo2.png'
+import PokdexHeadImg from "../../assets/images/pokedex-font.png";
+import PokedexLogo from "../../assets/images/logo2.png";
+import Card from "../card/Card";
+
 
 export default function HomePage() {
   const videoRef = useRef(null);
@@ -17,13 +19,13 @@ export default function HomePage() {
 
   return (
     <>
-    {/* home page */}
+      {/* home page */}
       <section id="home-container">
         <Navbar />
         <video
-          //autoPlay
-          //loop
-          // muted
+          autoPlay
+          loop
+           muted
           src={HomeVideo}
           className="bgVideo"
           ref={videoRef}
@@ -40,8 +42,8 @@ export default function HomePage() {
       {/* pokedex */}
       <section id="pokedex-container">
         <div className="pokedex-header">
-          <img src={PokdexHeadImg} alt="" className="title-img"/>
-          <img src={PokedexLogo} alt="" className="bottom-img"/>
+          <img src={PokdexHeadImg} alt="" className="title-img" />
+          <img src={PokedexLogo} alt="" className="bottom-img" />
         </div>
         <div className="searchBar--container">
           <div className="searchBar-left">
@@ -58,6 +60,15 @@ export default function HomePage() {
           </div>
         </div>
         {/* CardComponent */}
+        <div className="card-container">
+          <Card />
+          <Card />
+          <Card />
+          <Card />
+          <Card />
+          <Card />
+          <Card />
+        </div>
       </section>
     </>
   );
