@@ -1,26 +1,37 @@
-import cardImg from "../../assets/images/cardImg.png";
 import "./Card.css";
 
-export default function Card() {
+export default function Card({pokemon}) {
+
+  const pokemonCard = {
+    name: pokemon.name,
+    types: pokemon.types,
+    hp: pokemon.stats[0].base_stat,
+    height: pokemon.height,
+    weight: pokemon.weight,
+    img: pokemon.sprites.other['official-artwork'].front_default,
+  }
+
   return (
     <div className="card">
       <div className="card-img">
-        <img src={cardImg} alt="pokemon-img" />
+        <img src={pokemonCard.img} alt="pokemon-img" />
       </div>
       <div className="cardMain-text">
-        <p className="card-title">Charmander</p>
-        <span className="card-title--type">Grass</span>
+        <p className="card-title">{pokemonCard.name}</p>
+          {pokemonCard.types.map((type,index) => (
+          <span key={index} className="card-title--type">{type.type.name}</span>
+          ))}
       </div>
       <div className="cardMain-subText">
         <div className="cardMain-subText-1">
-          <p>HP</p>
+          <p>Base HP</p>
           <p>height</p>
           <p>Weight</p>
         </div>
         <div className="cardMain-subText-2">
-          <p>100</p>
-          <p>0.6m</p>
-          <p>8.5kg</p>
+          <p>{pokemonCard.hp}</p>
+          <p>{pokemonCard.height} M</p>
+          <p>{pokemonCard.weight} Kg</p>
         </div>
       </div>
     </div>

@@ -8,6 +8,12 @@
     flex-direction: column;
 }
 
+.card:hover {
+    transform: scale(1.05);
+    transition: transform 0.2s;
+    cursor: pointer;
+}
+
 .card .card-img {
     padding: 10px;
     display: flex;
