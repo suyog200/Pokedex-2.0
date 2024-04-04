@@ -25,12 +25,12 @@ export default function Card({pokemon}) {
       <div className="cardMain-subText">
         <div className="cardMain-subText-1">
           <p>Base HP</p>
-          <p>height</p>
+          <p>Height</p>
           <p>Weight</p>
         </div>
         <div className="cardMain-subText-2">
           <p>{pokemonCard.hp}</p>
-          <p>{pokemonCard.height} M</p>
+          <p>{pokemonCard.height} m</p>
           <p>{pokemonCard.weight} Kg</p>
         </div>
       </div>
