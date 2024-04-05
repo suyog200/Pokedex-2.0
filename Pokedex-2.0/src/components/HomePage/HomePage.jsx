@@ -6,7 +6,6 @@ import Navbar from "../Navbar/Navbar";
 
 
 export default function HomePage() {
-  const [pokemonData, setPokemonData] = useState([]);
   const videoRef = useRef(null);
 
   useEffect(() => {
@@ -21,9 +20,9 @@ export default function HomePage() {
       <section id="home-container">
         <Navbar />
         <video
-          //autoPlay
-          //loop
-          //muted
+          autoPlay
+          loop
+          muted
           src={HomeVideo}
           className="bgVideo"
           ref={videoRef}

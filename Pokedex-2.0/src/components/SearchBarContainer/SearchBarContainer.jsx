@@ -1,3 +1,6 @@
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import SearchIcon from '@mui/icons-material/Search';
+
 export default function SearchBarContainer() {
   return (
     <div className="searchBar--container">
@@ -7,11 +10,16 @@ export default function SearchBarContainer() {
           placeholder="Search Pokemon"
           className="searchBar-input"
         />
-        <button className="btn">Search</button>
+        <button className="btn">
+          <SearchIcon fontSize='small'/>
+          <span>Search</span>
+        </button>
       </div>
       <div className="searchBar-right">
-        <button className="btn">Favroite</button>
-        <button className="btn">Limit</button>
+        <button className="btn">
+          <FavoriteIcon fontSize='small'/>
+          <span>Favorites</span>
+        </button>
       </div>
     </div>
   );
