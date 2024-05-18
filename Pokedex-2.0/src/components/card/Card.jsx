@@ -1,6 +1,7 @@
+import {ColorTypes} from "../../util/ColorTypes";
 import "./Card.css";
 
-export default function Card({pokemon}) {
+export default function Card({pokemon, index, onClick}) {
 
   const pokemonCard = {
     name: pokemon.name,
@@ -11,15 +12,23 @@ export default function Card({pokemon}) {
     img: pokemon.sprites.other['official-artwork'].front_default,
   }
 
+  function handleClick() {
+    onClick(index);
+  };
+
   return (
-    <div className="card">
+    <div className="card" onClick={handleClick}>
       <div className="card-img">
         <img src={pokemonCard.img} alt="pokemon-img" />
       </div>
       <div className="cardMain-text">
         <p className="card-title">{pokemonCard.name}</p>
           {pokemonCard.types.map((type,index) => (
-          <span key={index} className="card-title--type">{type.type.name}</span>
+          <span 
+          key={index} 
+          className="card-title--type"
+          style={{backgroundColor: ColorTypes[type.type.name]}}
+          >{type.type.name}</span>
           ))}
       </div>
       <div className="cardMain-subText">

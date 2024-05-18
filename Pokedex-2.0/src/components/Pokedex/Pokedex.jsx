@@ -6,15 +6,20 @@ import SearchBarContainer from "../SearchBarContainer/SearchBarContainer";
 import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
 import Pagination from "@mui/material/Pagination";
-import { fetchPokemonData } from "../../util/DataFetch";
+import { fetchPokemonData, fetchPokemonDataByName } from "../../util/DataFetch";
+import InfoModal from "../Modal/InfoModal";
+import CloseIcon from '@mui/icons-material/Close';
 import "./Pokedex.css";
 
 const itemsPerPage = 20;
 
 export default function Pokedex() {
   const [pokemonData, setPokemonData] = useState([]);
+  const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
+  const [selectedPokemon, setSelectedPokemon] = useState(null);
+  const [openModal, setOpenModal] = useState(false);
 
   useEffect(() => {
     async function fetchData() {
@@ -33,7 +38,18 @@ export default function Pokedex() {
 
   function handlePageChange(event,pageNumber) {
     setCurrentPage(pageNumber);
+  };
+
+  function handleCardClick(index) {
+    setSelectedPokemon(pokemonData[index]);
+    setOpenModal(true);
+  };
+
+  function handleCloseModal() {
+    setOpenModal(false);
   }
+
+
 
   return (
     <section id="pokedex-container">
@@ -41,6 +57,7 @@ export default function Pokedex() {
         <img src={PokdexHeadImg} alt="" className="title-img" />
         <img src={PokedexLogo} alt="" className="bottom-img" />
       </div>
+      {/* <SearchBarContainer onSearch={handleSearch}/> */}
       <SearchBarContainer />
       {/* Loading Spinner */}
       {isLoading && (
@@ -58,7 +75,7 @@ export default function Pokedex() {
       {/* CardComponent */}
       <div className="card-container">
         {pokemonData.map((pokemon, index) => (
-          <Card key={index} pokemon={pokemon} />
+          <Card key={index} pokemon={pokemon} index={index} onClick={handleCardClick}/>
         ))}
       </div>
       <Box p={1} my={2}>
@@ -70,6 +87,18 @@ export default function Pokedex() {
           color="primary"
         />
       </Box>
+      {/* Modal */}
+      {openModal && selectedPokemon && (
+        <InfoModal open={openModal} handleCloseModal={handleCloseModal}>
+          <div className="modal">
+            <CloseIcon className="close-icon" onClick={handleCloseModal}/>
+            <div className="modal-wrapper">
+            <img className="modal-img" src={selectedPokemon.sprites.other["official-artwork"].front_default} alt="" />
+            <h1>{selectedPokemon.name}</h1>
+            </div>
+          </div>
+        </InfoModal>
+      )}
     </section>
   );
 }
