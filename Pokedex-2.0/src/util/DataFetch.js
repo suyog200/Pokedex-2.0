@@ -1,3 +1,7 @@
+import { QueryClient } from "@tanstack/react-query";
+
+export const queryClient = new QueryClient();
+
 // Purpose: Fetching data from the PokeAPI.
 export async function fetchPokemonData(itemsPerPage, currentPage) {
       const offset = (currentPage - 1) * itemsPerPage;
@@ -24,9 +28,9 @@ export async function fetchPokemonData(itemsPerPage, currentPage) {
 
 
 // Fetch pokemon data by name
-export async function fetchPokemonDataByName(pokemonName) {
+export async function fetchPokemonDataByName(selectedPokemon) {
   try {
-    const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`);
+    const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${selectedPokemon}`);
     // const response = await fetch(`https://pokemon-search-api.onrender.com/pokemon/${pokemonName}`);
     const data = await response.json();
     return data;

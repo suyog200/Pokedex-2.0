@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 import PokdexHeadImg from "../../assets/images/pokedex-font.png";
 import PokedexLogo from "../../assets/images/logo2.png";
 import Card from "../card/Card";
@@ -8,48 +9,76 @@ import Box from "@mui/material/Box";
 import Pagination from "@mui/material/Pagination";
 import { fetchPokemonData, fetchPokemonDataByName } from "../../util/DataFetch";
 import InfoModal from "../Modal/InfoModal";
-import CloseIcon from '@mui/icons-material/Close';
+import CloseIcon from "@mui/icons-material/Close";
 import "./Pokedex.css";
 
 const itemsPerPage = 20;
 
 export default function Pokedex() {
-  const [pokemonData, setPokemonData] = useState([]);
-  const [error, setError] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const [selectedPokemon, setSelectedPokemon] = useState(null);
+  const [selectedPokemon, setSelectedPokemon] = useState('');
   const [openModal, setOpenModal] = useState(false);
 
-  useEffect(() => {
-    async function fetchData() {
-      setIsLoading(true);
-      try {
-        const data = await fetchPokemonData(itemsPerPage, currentPage);
-        setPokemonData(data);
-      } catch (error) {
-        console.error("Failed to fetch pokemon data", error);
-      }
-      setIsLoading(false);
-    };
-    fetchData();
-  }, [currentPage]);
+  const { data, isPending, isError, error } = useQuery({
+    queryKey: ["pokemon", itemsPerPage, currentPage],
+    queryFn: () => fetchPokemonData(itemsPerPage, currentPage),
+  });
 
 
-  function handlePageChange(event,pageNumber) {
+
+  function handlePageChange(event, pageNumber) {
     setCurrentPage(pageNumber);
-  };
+  }
 
   function handleCardClick(index) {
-    setSelectedPokemon(pokemonData[index]);
+    setSelectedPokemon(data[index]);
+    console.log(data[index]);
     setOpenModal(true);
-  };
+  }
 
   function handleCloseModal() {
     setOpenModal(false);
   }
 
+  let content;
 
+  if (isPending) {
+    content = (
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "100px",
+        }}
+      >
+        <CircularProgress />
+      </Box>
+    );
+  }
+
+  if (isError) {
+    content = (
+      <div>
+        <p>{error.message}</p>
+      </div>
+    );
+  }
+
+  if (data) {
+    content = (
+      <div className="card-container">
+        {data.map((pokemon, index) => (
+          <Card
+            key={index}
+            pokemon={pokemon}
+            index={index}
+            onClick={handleCardClick}
+          />
+        ))}
+      </div>
+    );
+  }
 
   return (
     <section id="pokedex-container">
@@ -59,25 +88,7 @@ export default function Pokedex() {
       </div>
       {/* <SearchBarContainer onSearch={handleSearch}/> */}
       <SearchBarContainer />
-      {/* Loading Spinner */}
-      {isLoading && (
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            height: "100px",
-          }}
-        >
-          <CircularProgress />
-        </Box>
-      )}
-      {/* CardComponent */}
-      <div className="card-container">
-        {pokemonData.map((pokemon, index) => (
-          <Card key={index} pokemon={pokemon} index={index} onClick={handleCardClick}/>
-        ))}
-      </div>
+      {content}
       <Box p={1} my={2}>
         <Pagination
           count={66}
@@ -91,10 +102,17 @@ export default function Pokedex() {
       {openModal && selectedPokemon && (
         <InfoModal open={openModal} handleCloseModal={handleCloseModal}>
           <div className="modal">
-            <CloseIcon className="close-icon" onClick={handleCloseModal}/>
+            <CloseIcon className="close-icon" onClick={handleCloseModal} />
             <div className="modal-wrapper">
-            <img className="modal-img" src={selectedPokemon.sprites.other["official-artwork"].front_default} alt="" />
-            <h1>{selectedPokemon.name}</h1>
+              <img
+                className="modal-img"
+                src={
+                  selectedPokemon.sprites.other["official-artwork"]
+                    .front_default
+                }
+                alt=""
+              />
+              <h1>{selectedPokemon.name}</h1>
             </div>
           </div>
         </InfoModal>
