@@ -23,8 +23,8 @@ export default function InfoModal({ children, open, handleCloseModal }) {
           top: '50%',
           left: '50%',
           transform: 'translate(-50%, -50%)',
-          backgroundColor: 'white',
-          padding: '16px',
+          backgroundColor: '#C61B0A',
+          padding: '12px',
           boxShadow: 24,
           borderRadius: '8px',
           outline: 'none'

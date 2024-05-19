@@ -9,7 +9,7 @@ export default function Card({pokemon, index, onClick}) {
     hp: pokemon.stats[0].base_stat,
     height: pokemon.height,
     weight: pokemon.weight,
-    img: pokemon.sprites.other['official-artwork'].front_default,
+    img: pokemon.sprites.other['showdown'].front_default,
   }
 
   function handleClick() {

@@ -1,0 +1,35 @@
+.modal {
+    position: absolute;
+    border-radius: 10px;
+    padding: 10px 0px 0px 10px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+}
+
+.modal-wrapper {
+    display: flex;
+    justify-content: space-between;
+    background-color: white;
+    width: 100%;
+    gap: 20px;
+}
+
+.modal-wrapper--left {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+}
+
+.modal-wrapper--right {
+    width: 50%;
+    padding: 8px;
+}
+
+.modal-wrapper--left .modal-img {
+    width: 200px;
+    height: 200px;
+}
