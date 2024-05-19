@@ -9,7 +9,7 @@ import Box from "@mui/material/Box";
 import Pagination from "@mui/material/Pagination";
 import { fetchPokemonData, fetchPokemonDataByName } from "../../util/DataFetch";
 import InfoModal from "../Modal/InfoModal";
-import CloseIcon from "@mui/icons-material/Close";
+import PokemonDetails from "../PokemonDetails/PokemonDetails";
 import "./Pokedex.css";
 
 const itemsPerPage = 20;
@@ -101,20 +101,7 @@ export default function Pokedex() {
       {/* Modal */}
       {openModal && selectedPokemon && (
         <InfoModal open={openModal} handleCloseModal={handleCloseModal}>
-          <div className="modal">
-            <CloseIcon className="close-icon" onClick={handleCloseModal} />
-            <div className="modal-wrapper">
-              <img
-                className="modal-img"
-                src={
-                  selectedPokemon.sprites.other["official-artwork"]
-                    .front_default
-                }
-                alt=""
-              />
-              <h1>{selectedPokemon.name}</h1>
-            </div>
-          </div>
+          <PokemonDetails selectedPokemon={selectedPokemon} handleCloseModal={handleCloseModal}/>
         </InfoModal>
       )}
     </section>
