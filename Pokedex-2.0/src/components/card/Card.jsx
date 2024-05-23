@@ -19,7 +19,7 @@ export default function Card({pokemon, index, onClick}) {
   return (
     <div className="card" onClick={handleClick}>
       <div className="card-img">
-        <img src={pokemonCard.img} alt="pokemon-img" />
+        <img src={pokemonCard.img ? pokemonCard.img : "No image found"} alt="pokemon-img" />
       </div>
       <div className="cardMain-text">
         <p className="card-title">{pokemonCard.name}</p>

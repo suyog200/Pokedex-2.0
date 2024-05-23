@@ -23,7 +23,7 @@
     margin-bottom: 8px;
 }
 
-.pokedex-header .bottom-img {
+.bottom-img {
     width: 30px;
     height: 30px;
     animation: rotateBall 2s linear infinite;

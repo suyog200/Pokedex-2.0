@@ -7,6 +7,7 @@ import Box from "@mui/material/Box";
 import { BarChart } from "@mui/x-charts/BarChart";
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import PauseIcon from '@mui/icons-material/Pause';
+import { lightColors } from "../../util/LightColors";
 
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -106,7 +107,7 @@ export default function TabComponent({ selectedPokemon }) {
                 <p>Cries</p>
               </div>
               <div className="about-context-right">
-                <p>{selectedPokemon.base_experience}</p>
+                <p>{selectedPokemon.base_experience !== null ? selectedPokemon.base_experience : 'No base experience available'}</p>
                 <div className="audio-div" onClick={handleAudioPlayPause}>
                   {isPlaying ? <PauseIcon /> : <PlayArrowIcon />}
                 </div>  
@@ -160,6 +161,7 @@ export default function TabComponent({ selectedPokemon }) {
                   <div
                   className="moves-grid--item"
                     key={index}
+                    style={{backgroundColor: lightColors[Math.floor(Math.random() * lightColors.length)]}}
                   >
                     {move.move.name}
                   </div>
