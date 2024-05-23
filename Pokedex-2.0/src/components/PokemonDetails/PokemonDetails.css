@@ -1,11 +1,13 @@
 .modal {
     position: absolute;
     border-radius: 10px;
-    padding: 10px 0px 0px 10px;
+    padding: 15px;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     background-color: white;
+    width: 60%;
+    height: 80%;
 }
 
 .modal-wrapper {
@@ -14,22 +16,126 @@
     background-color: white;
     width: 100%;
     gap: 20px;
+    height: 80%;
+    overflow-y: auto;
 }
 
 .modal-wrapper--left {
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
     width: 50%;
 }
 
-.modal-wrapper--right {
-    width: 50%;
-    padding: 8px;
+.modal-wrapper--left .carousel {
+    width: 100%;
+    height: 100%;
+    margin: 5px;
 }
 
 .modal-wrapper--left .modal-img {
     width: 200px;
     height: 200px;
 }
+
+/* //right side of the modal */
+.modal-wrapper--right {
+    width: 50%;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+}
+
+.modal-wrapper--right .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0;
+    height: 25px;
+    padding: 8px;
+}
+
+.modal-wrapper--right .card-header p {
+    font-size: 18px;
+    font-weight: bold;
+    color: white;
+}
+
+.card-header--title h1 {
+    font-weight: bold;
+    color: black;
+    margin: 15px 10px;
+    font-size: 2.5rem;
+    text-transform: capitalize;
+}
+
+.card-pokemon--types {
+    display: flex;
+    gap: 8px;
+    padding: 8px;
+}
+
+.card-pokemon--types span {
+    padding: 5px;
+    border-radius: 5px;
+    background-color: #ffffff;
+    color: black;
+    text-transform: capitalize;
+}
+
+.card-tabs {
+    width: 100%;
+    background-color: white;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    margin-top: 20px;
+}
+
+.about-context {
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+}
+
+.about-context--left p {
+    font-size: 1rem;
+    font-weight: 400;
+    color: #B3B6B7;
+}
+
+.about-context--right .ability-div {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.about-context--right .ability-div p {
+    margin: 0px;
+}
+
+/* moves */
+.moves-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 10px;
+    height: 400px;
+    overflow-y: auto;
+}
+
+.moves-grid--item {
+    padding: 5px;
+    border-radius: 10px;
+    background-color: #e4dfdf;
+    text-align: center;
+    text-transform: capitalize;
+    font-weight: 500;
+}
+
+
+
+
+
+
+#customTab-p0 .MuiBox-root {
+    padding: 10px;
+}
+
