@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import PokdexHeadImg from "../../assets/images/pokedex-font.png";
 import PokedexLogo from "../../assets/images/logo2.png";
 import Card from "../card/Card";
-import SearchBarContainer from "../PokemonDetails/SearchBarContainer/SearchBarContainer";
+import SearchBarContainer from "../SearchBarContainer/SearchBarContainer";
 import Box from "@mui/material/Box";
 import Pagination from "@mui/material/Pagination";
 import { fetchPokemonData, fetchPokemonDataByName } from "../../util/DataFetch";
