@@ -6,7 +6,7 @@ import Card from "../card/Card";
 import SearchBarContainer from "../SearchBarContainer/SearchBarContainer";
 import Box from "@mui/material/Box";
 import Pagination from "@mui/material/Pagination";
-import { fetchPokemonData, fetchPokemonDataByName } from "../../util/DataFetch";
+import { fetchPokemonData } from "../../util/DataFetch";
 import InfoModal from "../Modal/InfoModal";
 import PokemonDetails from "../PokemonDetails/PokemonDetails";
 import "./Pokedex.css";
