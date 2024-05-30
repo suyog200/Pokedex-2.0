@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import PokdexHeadImg from "../../assets/images/pokedex-font.png";
 import PokedexLogo from "../../assets/images/logo2.png";
@@ -15,28 +15,42 @@ const itemsPerPage = 20;
 
 export default function Pokedex() {
   const [currentPage, setCurrentPage] = useState(1);
-  const [selectedPokemon, setSelectedPokemon] = useState('');
+  const [selectedPokemon, setSelectedPokemon] = useState("");
   const [openModal, setOpenModal] = useState(false);
+  const [showFavorites, setShowFavorites] = useState(false);
+  const [favoritePokemons, setFavoritePokemons] = useState([]);
 
-  const { data, isPending, isError, error } = useQuery({
+  const { data, isPending, isError, error, refetch } = useQuery({
     queryKey: ["pokemon", itemsPerPage, currentPage],
     queryFn: () => fetchPokemonData(itemsPerPage, currentPage),
+    enabled: !showFavorites,
   });
 
-
+  useEffect(() => {
+    if (showFavorites) {
+      const favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+      setFavoritePokemons(favorites);
+    } else {
+      refetch();
+    }
+  }, [showFavorites, refetch]);
 
   function handlePageChange(event, pageNumber) {
     setCurrentPage(pageNumber);
   }
 
   function handleCardClick(index) {
-    setSelectedPokemon(data[index]);
-    console.log(data[index]);
+    const pokemonData = showFavorites ? favoritePokemons : data;
+    setSelectedPokemon(pokemonData[index]);
     setOpenModal(true);
   }
 
   function handleCloseModal() {
     setOpenModal(false);
+  }
+
+  function handleShowFavoritesToggle() {
+    setShowFavorites((prev) => !prev);
   }
 
   let content;
@@ -64,7 +78,7 @@ export default function Pokedex() {
     );
   }
 
-  if (data) {
+  if (!showFavorites &&  data) {
     content = (
       <div className="card-container">
         {data.map((pokemon, index) => (
@@ -77,7 +91,27 @@ export default function Pokedex() {
         ))}
       </div>
     );
+  } 
+  
+  if (showFavorites) {
+    content = (
+      <div className="card-container">
+        {favoritePokemons.length > 0 ? (
+          favoritePokemons.map((pokemon, index) => (
+            <Card
+              key={index}
+              pokemon={pokemon}
+              index={index}
+              onClick={handleCardClick}
+            />
+          ))
+        ) : (
+          <p>No favorites found</p>
+        )}
+      </div>
+    );
   }
+
 
   return (
     <section id="pokedex-container">
@@ -85,21 +119,29 @@ export default function Pokedex() {
         <img src={PokdexHeadImg} alt="" className="title-img" />
       </div>
       {/* <SearchBarContainer onSearch={handleSearch}/> */}
-      <SearchBarContainer />
+      <SearchBarContainer
+        toggle={handleShowFavoritesToggle}
+        showFavorites={showFavorites}
+      />
       {content}
-      <Box p={1} my={2}>
-        <Pagination
-          count={66}
-          variant="outlined"
-          onChange={handlePageChange}
-          page={currentPage}
-          color="primary"
-        />
-      </Box>
+      {!showFavorites && (
+        <Box p={1} my={2}>
+          <Pagination
+            count={66}
+            variant="outlined"
+            onChange={handlePageChange}
+            page={currentPage}
+            color="primary"
+          />
+        </Box>
+      )}
       {/* Modal */}
       {openModal && selectedPokemon && (
         <InfoModal open={openModal} handleCloseModal={handleCloseModal}>
-          <PokemonDetails selectedPokemon={selectedPokemon} handleCloseModal={handleCloseModal}/>
+          <PokemonDetails
+            selectedPokemon={selectedPokemon}
+            handleCloseModal={handleCloseModal}
+          />
         </InfoModal>
       )}
     </section>

@@ -16,6 +16,7 @@ export default function Card({pokemon, index, onClick}) {
     onClick(index);
   };
 
+
   return (
     <div className="card" onClick={handleClick}>
       <div className="card-img">
