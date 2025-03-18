@@ -6,7 +6,13 @@ export const queryClient = new QueryClient();
 export async function fetchPokemonData(itemsPerPage, currentPage) {
       const offset = (currentPage - 1) * itemsPerPage;
       const response = await fetch(
-        `https://pokeapi.co/api/v2/pokemon?offset=${offset}&limit=${itemsPerPage}`
+        `https://pokeapi.co/api/v2/pokemon?offset=${offset}&limit=${itemsPerPage}`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
+          },
+        }
       );
 
       if(!response.ok) {
