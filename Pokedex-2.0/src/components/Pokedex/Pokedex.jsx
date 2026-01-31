@@ -19,6 +19,7 @@ export default function Pokedex() {
   const [openModal, setOpenModal] = useState(false);
   const [showFavorites, setShowFavorites] = useState(false);
   const [favoritePokemons, setFavoritePokemons] = useState([]);
+  const [searchedPokemon, setSearchedPokemon] = useState(null);
 
   const { data, isPending, isError, error, refetch } = useQuery({
     queryKey: ["pokemon", itemsPerPage, currentPage],
@@ -51,6 +52,17 @@ export default function Pokedex() {
 
   function handleShowFavoritesToggle() {
     setShowFavorites((prev) => !prev);
+    setSearchedPokemon(null); // Clear search when toggling
+  }
+
+  function handleSearch(pokemonData) {
+    setSearchedPokemon(pokemonData);
+    setShowFavorites(false); // Exit favorites view when searching
+  }
+
+  function handleClearSearch() {
+    setSearchedPokemon(null);
+    setShowFavorites(false);
   }
 
   let content;
@@ -78,7 +90,20 @@ export default function Pokedex() {
     );
   }
 
-  if (!showFavorites &&  data) {
+  if (searchedPokemon) {
+    content = (
+      <div className="card-container">
+        <Card
+          pokemon={searchedPokemon}
+          index={0}
+          onClick={() => {
+            setSelectedPokemon(searchedPokemon);
+            setOpenModal(true);
+          }}
+        />
+      </div>
+    );
+  } else if (!showFavorites && data) {
     content = (
       <div className="card-container">
         {data.map((pokemon, index) => (
@@ -91,8 +116,8 @@ export default function Pokedex() {
         ))}
       </div>
     );
-  } 
-  
+  }
+
   if (showFavorites) {
     content = (
       <div className="card-container">
@@ -112,19 +137,19 @@ export default function Pokedex() {
     );
   }
 
-
   return (
     <section id="pokedex-container">
       <div className="pokedex-header">
         <img src={PokdexHeadImg} alt="" className="title-img" />
       </div>
-      {/* <SearchBarContainer onSearch={handleSearch}/> */}
       <SearchBarContainer
         toggle={handleShowFavoritesToggle}
         showFavorites={showFavorites}
+        onSearch={handleSearch}
+        onClearSearch={handleClearSearch}
       />
       {content}
-      {!showFavorites && (
+      {!showFavorites && !searchedPokemon && (
         <Box p={1} my={2}>
           <Pagination
             count={66}

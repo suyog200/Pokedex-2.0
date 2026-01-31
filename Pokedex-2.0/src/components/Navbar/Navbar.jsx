@@ -1,9 +1,12 @@
-import { useState, useEffect } from 'react';
-import './Navbar.css';
-import HomeLogo from '../../assets/images/pokemon-logo.png';
+import { useState, useEffect } from "react";
+import "./Navbar.css";
+import HomeLogo from "../../assets/images/pokemon-logo.png";
+import MenuIcon from "@mui/icons-material/Menu";
+import CloseIcon from "@mui/icons-material/Close";
 
 export default function Navbar() {
   const [scroll, setScroll] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -13,27 +16,56 @@ export default function Navbar() {
         setScroll(false);
       }
     };
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
 
     return () => {
-      window.removeEventListener('scroll', handleScroll);
-    }
-  }, [])
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
+  const toggleMenu = () => {
+    setMenuOpen(!menuOpen);
+  };
+
+  const closeMenu = () => {
+    setMenuOpen(false);
+  };
 
   return (
-    <div className={`navbar ${scroll ? 'scroll' : ''}`}>
+    <div className={`navbar ${scroll ? "scroll" : ""}`}>
       <div className="navbar-left">
-        <img src={HomeLogo} alt="logo" className='home-logo'/>
+        <img src={HomeLogo} alt="logo" className="home-logo" />
       </div>
       <div className="navbar-right">
-        <div className="navbar-links">
-          <a href="#" className='navbar-link'>Home</a>
-          <a href="#" className='navbar-link'>Pokedex</a>
-          <a href="#" className='navbar-link'>Community</a>
-          <a href="#" className='navbar-link'>Contact</a>
+        <div className={`navbar-links ${menuOpen ? "active" : ""}`}>
+          <a href="#home-container" className="navbar-link" onClick={closeMenu}>
+            Home
+          </a>
+          <a
+            href="#pokedex-container"
+            className="navbar-link"
+            onClick={closeMenu}
+          >
+            Pokedex
+          </a>
+          <a
+            href="#community-container"
+            className="navbar-link"
+            onClick={closeMenu}
+          >
+            Community
+          </a>
+          <a
+            href="#contact-container"
+            className="navbar-link"
+            onClick={closeMenu}
+          >
+            Contact
+          </a>
         </div>
-        <button className="btn-logout">Logout</button>
+        <div className="hamburger" onClick={toggleMenu}>
+          {menuOpen ? <CloseIcon /> : <MenuIcon />}
+        </div>
       </div>
     </div>
   );
