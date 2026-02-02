@@ -42,8 +42,7 @@ export default function HomePage() {
           playsInline
           preload="auto"  // Add this
           webkit-playsinline="true"  // Add this for older iOS
-          //src={HomeVideo}
-          src="https://www.w3schools.com/html/mov_bbb.mp4"
+          src={HomeVideo}
           className="bgVideo"
           ref={videoRef}
           style={{scale: scaleImg, opacity: opacityImg}}
