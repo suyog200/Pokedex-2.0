@@ -27,6 +27,7 @@ export default function HomePage() {
           autoPlay
           loop
           muted
+          playsInline
           src={HomeVideo}
           className="bgVideo"
           ref={videoRef}
