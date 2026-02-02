@@ -8,10 +8,6 @@ export async function fetchPokemonData(itemsPerPage, currentPage) {
       const response = await fetch(
         `https://pokeapi.co/api/v2/pokemon?offset=${offset}&limit=${itemsPerPage}`, {
           method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            "Access-Control-Allow-Origin": "*",
-          },
         }
       );
 
