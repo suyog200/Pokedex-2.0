@@ -1,6 +1,7 @@
 import { useRef, useEffect, useState } from "react";
 import "./HomePage.css";
 import HomeVideo from "../../assets/images/home-main.mp4";
+import HomePoster from "../../assets/images/home-poster.png";
 import DownArrow from "../../assets/images/go-down-arrow.png";
 import Navbar from "../Navbar/Navbar";
 import { motion, useScroll, useTransform } from "framer-motion";
@@ -8,48 +9,57 @@ import { motion, useScroll, useTransform } from "framer-motion";
 export default function HomePage() {
   const videoRef = useRef(null);
   const {scrollY} = useScroll();
+  const [isMobile, setIsMobile] = useState(false);
 
   const scaleImg = useTransform(scrollY, [0, 500, 800], [1, 1.5, 2]);
   const opacityImg = useTransform(scrollY, [500, 600, 800], [1, 0.5, 0]);
 
   useEffect(() => {
-    if (videoRef.current) {
-      videoRef.current.playbackRate = 0.6;
-      
-      // Force play on iOS - sometimes needed
-      const playPromise = videoRef.current.play();
-      if (playPromise !== undefined) {
-        playPromise.catch(error => {
-          console.log("Video autoplay failed:", error);
-          // Attempt to play again on user interaction
-          document.addEventListener('touchstart', () => {
-            videoRef.current?.play();
-          }, { once: true });
-        });
-      }
-    }
+    // Detect mobile device
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768 || /iPhone|iPad|iPod|Android/i.test(navigator.userAgent));
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    
+    return () => window.removeEventListener('resize', checkMobile);
   }, []);
+
+  useEffect(() => {
+    if (videoRef.current && !isMobile) {
+      videoRef.current.playbackRate = 0.6;
+    }
+  }, [isMobile]);
 
   return (
     <>
-      {/* home page */}
       <section id="home-container">
         <Navbar />
-        <motion.video
-          autoPlay
-          loop
-          muted
-          playsInline
-          preload="auto"  // Add this
-          webkit-playsinline="true"  // Add this for older iOS
-          src={HomeVideo}
-          className="bgVideo"
-          ref={videoRef}
-          style={{scale: scaleImg, opacity: opacityImg}}
-        >
-          {/* Add source tag as fallback */}
-          <source src={HomeVideo} type="video/mp4" />
-        </motion.video>
+        {isMobile ? (
+          <motion.div
+            className="bgVideo"
+            style={{
+              backgroundImage: `url(${HomePoster})`,
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+              scale: scaleImg,
+              opacity: opacityImg
+            }}
+          />
+        ) : (
+          <motion.video
+            autoPlay
+            loop
+            muted
+            playsInline
+            preload="auto"
+            src={HomeVideo}
+            className="bgVideo"
+            ref={videoRef}
+            style={{scale: scaleImg, opacity: opacityImg}}
+          />
+        )}
         <div className="home-content--left">
           <div className="main-heading">
             <p className="heading1">Welcome to Pokemon World</p>
